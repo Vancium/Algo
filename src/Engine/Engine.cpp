@@ -8,8 +8,8 @@
 #include <cstdlib>
 #include <iostream>
 #include <memory>
-#include <numeric>
 #include <vector>
+#include "../Sorting/Sorting.hpp"
 
 namespace Algo {
 
@@ -26,7 +26,7 @@ namespace Algo {
             std::cout << "Could not create SDL renderer" << std::endl;
         }
 
-        mRenderer = std::unique_ptr<Renderer>( new Renderer( mWindow ) );
+        mRenderer = std::shared_ptr<Renderer>( new Renderer( mWindow ) );
 
         mRunning = true;
         GenerateRandomSequence();
@@ -53,72 +53,11 @@ namespace Algo {
                     break;
                 }
                 case SDL_KEYDOWN: {
-                    MergeSort( 0, mArray.size() - 1 );
+                    MergeSort( mArray, 0, mArray.size() - 1, mRenderer );
                     break;
                 }
             }
         }
-    }
-
-    void Engine::Merge( int left, int mid, int right ) {
-
-        mRenderer->Prepare( mArray );
-        mRenderer->Update();
-        std::cout << "Merging" << std::endl;
-        std::vector<unsigned int> subArrOne;
-        std::vector<unsigned int> subArrTwo;
-
-        int subArrOneLength = mid - left + 1;
-        int subArrTwoLength = right - mid;
-
-        // Copy data to temp vectors
-        for ( int i = 0; i < subArrOneLength; i++ ) {
-            subArrOne.emplace_back( i ) = mArray.at( left + i );
-        }
-
-        for ( int j = 0; j < subArrTwoLength; j++ ) {
-            subArrTwo.emplace_back( j ) = mArray.at( mid + 1 + j );
-        }
-
-        int indexOne = 0, indexTwo = 0;
-        int mergeIndex = left;
-
-        // Merge temp arrays
-        while ( indexOne < subArrOneLength && indexTwo < subArrTwoLength ) {
-
-            if ( subArrOne.at( indexOne ) <= subArrTwo.at( indexTwo ) ) {
-                mArray.at( mergeIndex ) = subArrOne.at( indexOne );
-                indexOne++;
-            } else {
-                mArray.at( mergeIndex ) = subArrTwo.at( indexTwo );
-                indexTwo++;
-            }
-            mergeIndex++;
-        }
-
-        // Copy remaining elements from right array if any
-        while ( indexOne < subArrOneLength ) {
-            mArray.at( mergeIndex ) = subArrOne.at( indexOne );
-            indexOne++;
-            mergeIndex++;
-        }
-
-        while ( indexTwo < subArrTwoLength ) {
-            mArray.at( mergeIndex ) = subArrTwo.at( indexTwo );
-            indexTwo++;
-            mergeIndex++;
-        }
-    }
-
-    void Engine::MergeSort( const int begin, const int end ) {
-        if ( begin >= end ) {
-            return;
-        }
-
-        int mid = begin + ( end - begin ) / 2;
-        MergeSort( begin, mid );
-        MergeSort( mid + 1, end );
-        Merge( begin, mid, end );
     }
 
     void Engine::Sort( SortAlgorithm algo ) {
@@ -126,7 +65,6 @@ namespace Algo {
 
         switch ( algo ) {
             case MERGE_SORT: {
-                MergeSort( 0, mArray.size() - 1 );
                 break;
             }
         }

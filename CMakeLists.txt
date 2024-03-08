@@ -13,6 +13,7 @@ set(
     src/main.cpp
     src/Engine/Engine.cpp
     src/Renderer/Renderer.cpp
+    src/Sorting/Sorting.cpp
 )
 
 find_package(SDL2 REQUIRED)

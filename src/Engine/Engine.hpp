@@ -22,9 +22,7 @@ namespace Algo {
 
       private:
         void GenerateRandomSequence();
-        void MergeSort( const int begin, const int end );
 
-        void Merge( int left, int mid, int right );
         SDL_Window *mWindow;
         bool mRunning;
         Theme mTheme;
@@ -32,6 +30,6 @@ namespace Algo {
         std::vector<unsigned int> mArray;
         unsigned int mWidth;
         unsigned int mHeight;
-        std::unique_ptr<Renderer> mRenderer;
+        std::shared_ptr<Renderer> mRenderer;
     };
 } // namespace Algo
