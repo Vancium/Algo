@@ -66,9 +66,9 @@ namespace Algo {
 
             SDL_Rect bar;
             bar.x = xOffset + spacing * i;
-            bar.y = mHeight - yOffset - vec.at( i ) * 20;
+            bar.y = mHeight - yOffset - vec.at( i ) / 2;
             bar.w = width;
-            bar.h = vec.at( i ) * 20;
+            bar.h = vec.at( i ) / 2;
 
             SDL_RenderDrawRect( mRendererInstance, &bar );
         }

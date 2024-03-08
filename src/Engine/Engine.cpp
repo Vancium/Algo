@@ -1,14 +1,16 @@
 #include "Engine.hpp"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>
+#include <SDL2/SDL_keycode.h>
 #include <SDL2/SDL_pixels.h>
 #include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_video.h>
-#include <cstdlib>
 #include <iostream>
 #include <memory>
 #include <vector>
+#include <algorithm>
+#include <random>
 #include "../Sorting/Sorting.hpp"
 
 namespace Algo {
@@ -29,19 +31,14 @@ namespace Algo {
         mRenderer = std::shared_ptr<Renderer>( new Renderer( mWindow ) );
 
         mRunning = true;
-        GenerateRandomSequence();
+        InitializeContainer();
+        Shuffle();
     }
 
-    void Engine::GenerateRandomSequence() {
-
+    void Engine::InitializeContainer() {
         mArray.clear();
-
-        srand( time( nullptr ) );
-
-        for ( int i = 0; i < 1000; i++ ) {
-
-            int j = rand() % 30 + 1;
-            mArray.push_back( j );
+        for ( int i = 1; i < 1000; i++ ) {
+            mArray.push_back( i );
         }
     }
 
@@ -62,19 +59,42 @@ namespace Algo {
                     KEYS[ e.key.keysym.sym ] = false;
                     break;
                 }
+                default:
+                    break;
             }
         }
     }
 
+    void Engine::Shuffle() {
+        auto rd = std::random_device{};
+        auto rng = std::default_random_engine{ rd() };
+        std::shuffle( std::begin( mArray ), std::end( mArray ), rng );
+    }
+
     void Engine::HandleEvents() {
+
+        if ( KEYS[ SDLK_ESCAPE ] ) {
+            mRunning = false;
+        }
         if ( KEYS[ SDLK_m ] ) {
             Sort( MERGE_SORT );
         }
         if ( KEYS[ SDLK_i ] ) {
-            InsertionSort( mArray, mRenderer );
+            Sort( INSERTION_SORT );
+        }
+        if ( KEYS[ SDLK_c ] ) {
+            Sort( SHELL_SORT );
+        }
+        if ( KEYS[ SDLK_q ] ) {
+            Sort( QUICK_SORT );
         }
         if ( KEYS[ SDLK_r ] ) {
-            GenerateRandomSequence();
+            InitializeContainer();
+            Shuffle();
+        }
+
+        if ( KEYS[ SDLK_s ] ) {
+            Sort( SELECTION_SORT );
         }
     }
 
@@ -85,6 +105,23 @@ namespace Algo {
                 MergeSort( mArray, 0, mArray.size() - 1, mRenderer );
                 break;
             }
+            case INSERTION_SORT: {
+                InsertionSort( mArray, mRenderer );
+                break;
+            }
+            case SELECTION_SORT: {
+                SelectionSort( mArray, mRenderer );
+                break;
+            }
+            case SHELL_SORT: {
+                ShellSort( mArray, mRenderer );
+                break;
+            }
+            case QUICK_SORT: {
+                QuickSort( mArray, 0, mArray.size() - 1, mRenderer );
+            }
+            default:
+                break;
         }
     }
 

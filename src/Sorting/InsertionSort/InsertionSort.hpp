@@ -7,5 +7,4 @@
 namespace Algo {
     void InsertionSort( std::vector<unsigned int> &arr, std::shared_ptr<Renderer> renderer );
 
-    void Swap( std::vector<unsigned int> &arr, int i, int j );
 } // namespace Algo

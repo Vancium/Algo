@@ -7,7 +7,11 @@
 namespace Algo {
 
     enum SortAlgorithm {
-        MERGE_SORT
+        MERGE_SORT,
+        SELECTION_SORT,
+        INSERTION_SORT,
+        SHELL_SORT,
+        QUICK_SORT
     };
 
     class Engine {
@@ -22,6 +26,8 @@ namespace Algo {
         void Sort( SortAlgorithm algo );
 
       private:
+        void InitializeContainer();
+        void Shuffle();
         void GenerateRandomSequence();
 
         SDL_Window *mWindow;

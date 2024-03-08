@@ -13,8 +13,12 @@ set(
     src/main.cpp
     src/Engine/Engine.cpp
     src/Renderer/Renderer.cpp
+    src/Sorting/Util/Utils.cpp
     src/Sorting/MergeSort/MergeSort.cpp
     src/Sorting/InsertionSort/InsertionSort.cpp
+    src/Sorting/SelectionSort/SelectionSort.cpp
+    src/Sorting/QuickSort/QuickSort.cpp
+    src/Sorting/ShellSort/ShellSort.cpp
 )
 
 find_package(SDL2 REQUIRED)

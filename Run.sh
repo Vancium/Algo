@@ -1,2 +1,3 @@
 
+./Build.sh
 ./bin/Algo

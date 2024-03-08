@@ -1,5 +1,7 @@
 #include "InsertionSort.hpp"
 
+#include "../Util/Utils.hpp"
+
 namespace Algo {
 
     void InsertionSort( std::vector<unsigned int> &arr, std::shared_ptr<Renderer> renderer ) {
@@ -8,16 +10,11 @@ namespace Algo {
             renderer->Prepare( arr );
             renderer->Update();
 
-            for ( int j = i; j > 0 && arr.at( j - 1 ) > arr.at( j ); j-- ) {
+            for ( int j = i; j > 0 && LessThan( arr.at( j ), arr.at( j - 1 ) ); j-- ) {
 
                 Swap( arr, j, j - 1 );
             }
         }
     }
 
-    void Swap( std::vector<unsigned int> &arr, int i, int j ) {
-        unsigned int temp = arr.at( j );
-        arr.at( j ) = arr.at( i );
-        arr.at( i ) = temp;
-    }
 } // namespace Algo
