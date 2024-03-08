@@ -17,6 +17,7 @@ namespace Algo {
 
         void Run();
         void PollEvents();
+        void HandleEvents();
 
         void Sort( SortAlgorithm algo );
 
@@ -31,5 +32,7 @@ namespace Algo {
         unsigned int mWidth;
         unsigned int mHeight;
         std::shared_ptr<Renderer> mRenderer;
+
+        bool KEYS[ 322 ];
     };
 } // namespace Algo

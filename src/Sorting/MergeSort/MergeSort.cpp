@@ -1,5 +1,4 @@
-#include "Sorting.hpp"
-
+#include "MergeSort.hpp"
 #include <vector>
 #include <iostream>
 
@@ -18,7 +17,6 @@ namespace Algo {
     void Merge( std::vector<unsigned int> &arr, int left, int mid, int right, std::shared_ptr<Renderer> renderer ) {
         renderer->Prepare( arr );
         renderer->Update();
-        std::cout << "Merging" << std::endl;
         std::vector<unsigned int> subArrOne;
         std::vector<unsigned int> subArrTwo;
 

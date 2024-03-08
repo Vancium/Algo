@@ -34,6 +34,8 @@ namespace Algo {
 
     void Engine::GenerateRandomSequence() {
 
+        mArray.clear();
+
         srand( time( nullptr ) );
 
         for ( int i = 0; i < 1000; i++ ) {
@@ -53,18 +55,34 @@ namespace Algo {
                     break;
                 }
                 case SDL_KEYDOWN: {
-                    MergeSort( mArray, 0, mArray.size() - 1, mRenderer );
+                    KEYS[ e.key.keysym.sym ] = true;
+                    break;
+                }
+                case SDL_KEYUP: {
+                    KEYS[ e.key.keysym.sym ] = false;
                     break;
                 }
             }
         }
     }
 
+    void Engine::HandleEvents() {
+        if ( KEYS[ SDLK_m ] ) {
+            Sort( MERGE_SORT );
+        }
+        if ( KEYS[ SDLK_i ] ) {
+            InsertionSort( mArray, mRenderer );
+        }
+        if ( KEYS[ SDLK_r ] ) {
+            GenerateRandomSequence();
+        }
+    }
+
     void Engine::Sort( SortAlgorithm algo ) {
-        std::cout << "Sorting" << std::endl;
 
         switch ( algo ) {
             case MERGE_SORT: {
+                MergeSort( mArray, 0, mArray.size() - 1, mRenderer );
                 break;
             }
         }
@@ -73,6 +91,8 @@ namespace Algo {
     void Engine::Run() {
         while ( mRunning ) {
             PollEvents();
+
+            HandleEvents();
             mRenderer->Prepare( mArray );
             mRenderer->Update();
         }
