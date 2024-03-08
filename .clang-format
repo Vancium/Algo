@@ -13,3 +13,6 @@ IndentCaseLabels: 'true'
 
 #disable sorting of includes
 SortIncludes: 'false'
+
+
+ColumnLimit: 0

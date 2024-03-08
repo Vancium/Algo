@@ -11,6 +11,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE INTERNAL "")
 set(
     SOURCE_FILES
     src/main.cpp
+    src/Engine/Engine.cpp
+    src/Renderer/Renderer.cpp
 )
 
 find_package(SDL2 REQUIRED)

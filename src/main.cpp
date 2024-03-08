@@ -1,3 +1,8 @@
-#include <iostream>
+#include "Engine/Engine.hpp"
 
-int main(void) { std::cout << "Algo" << std::endl; }
+int main( void ) {
+
+    Algo::Engine e( "Algo", 1280, 720 );
+
+    e.Run();
+}
